@@ -1,0 +1,15 @@
+LABELED_DIR_PATH= ./yolov7/data/thermal-human/pass/
+EDIT_DIR_PATH= ./runs/edit/
+AMB_IMG_DIR_PATH= ./yolov7/data/thermal-human/amb/
+AMB_LABEL_DIR_PATH= ./yolov7/data/thermal-human/labels/
+DIR_PATH= ./data/
+
+
+#### 형식 준수 할 것 ###############
+예시)
+LABELED_DIR_PATH= ./runs/save/
+EDIT_DIR_PATH= ./runs/edit/
+AMB_IMG_DIR_PATH= ./data/images/
+AMB_LABEL_DIR_PATH= ./data/labels/
+
+##################################
