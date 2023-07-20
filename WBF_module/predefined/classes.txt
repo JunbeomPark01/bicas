@@ -1,0 +1,10 @@
+stand
+sit
+pain_sit
+laying
+crawl
+walking
+cross_arm
+hands_up
+lean
+middle_hand
