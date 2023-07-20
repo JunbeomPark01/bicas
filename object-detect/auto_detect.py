@@ -173,8 +173,9 @@ def detect(_source,_weights,_name,_keyword,pass_conf=0.8,amb_conf=0.6,fail_conf=
             # Save results (image with detections)
             if save_img:
                 if dataset.mode == 'image':
-                    cv2.imwrite(save_path, im0)
-                    print(f" The image with the result is saved in: {save_path}")
+                    if filter != "delete":
+                        cv2.imwrite(save_path, im0)
+                        print(f" The image with the result is saved in: {save_path}")
                 else:  # 'video' or 'stream'
                     if vid_path != save_path:  # new video
                         vid_path = save_path
