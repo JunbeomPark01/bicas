@@ -1,4 +1,4 @@
-import auto_detect as Detect
+from yolov7 import auto_detect as Y7
 import os
 import sys
 import shutil
@@ -7,7 +7,7 @@ from check_labeling import check_labeling as CL
 from labelImg import edit_labeling as EL
 
 if __name__ == "__main__":
-
+    
     dataset = input("Input dataset : ")
     source = f"./data/{dataset}/test"
 
@@ -25,7 +25,7 @@ if __name__ == "__main__":
         amb_conf = float(input("Ambiguous filter : "))
         fail_conf = float(input("Fail filter : "))
 
-        conf = Detect.detect(source, weights, name, dataset, pass_conf, amb_conf, fail_conf)
+        conf = Y7.detect(source, weights, name, dataset, pass_conf, amb_conf, fail_conf)
         done = CL.check_label(dataset)
         if done:
             EL.edit(dataset)

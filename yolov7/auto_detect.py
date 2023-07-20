@@ -1,18 +1,21 @@
 import time
 from pathlib import Path
-
+import sys
+import os
 import shutil
 import cv2
 import torch
 import torch.backends.cudnn as cudnn
 from numpy import random
+#sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+sys.path.append(os.path.dirname(__file__))
 import filter as fil
-from models.experimental import attempt_load
 from utils.datasets import LoadStreams, LoadImages
 from utils.general import check_img_size, check_imshow, non_max_suppression, apply_classifier, \
     scale_coords, xyxy2xywh, set_logging, increment_path
 from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
+from models.experimental import attempt_load
 
 
 def detect(_source,_weights,_name,_keyword,pass_conf=0.8,amb_conf=0.6,fail_conf=0.4,_imgsz=640,save_img=False):
