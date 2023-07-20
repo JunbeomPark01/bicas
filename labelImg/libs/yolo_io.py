@@ -137,10 +137,12 @@ class YoloReader:
         bnd_box_file = open(self.file_path, 'r')
         for bndBox in bnd_box_file:
             bndBoxList = bndBox.strip().split(' ')
-            if len(bndBoxList) == 4:
-                class_index, x_center, y_center, w, h = bndBox.strip().split(' ')
-            elif len(bndBoxList) == 5:
-                class_index, x_center, y_center, w, h, confidence = bndBox.strip().split(' ')
+            class_index = bndBoxList[0]
+            x_center = bndBoxList[1]
+            y_center = bndBoxList[2]
+            w = bndBoxList[3]
+            h = bndBoxList[4]
+            
             label, x_min, y_min, x_max, y_max = self.yolo_line_to_shape(class_index, x_center, y_center, w, h)
 
             # Caveat: difficult flag is discarded when saved as yolo format.
