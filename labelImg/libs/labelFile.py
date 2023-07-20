@@ -114,6 +114,7 @@ class LabelFile(object):
     def toggle_verify(self):
         self.verified = not self.verified
 
+
     ''' ttf is disable
     def load(self, filename):
         import json

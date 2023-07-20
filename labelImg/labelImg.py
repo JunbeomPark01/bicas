@@ -851,9 +851,10 @@ class MainWindow(QMainWindow, WindowMixin):
         item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
         item.setCheckState(Qt.Checked)
         item.setBackground(generate_color_by_text(shape.label))
+        self.label_list.addItem(item)
         self.items_to_shapes[item] = shape
         self.shapes_to_items[shape] = item
-        self.label_list.addItem(item)
+        
         for action in self.actions.onShapesPresent:
             action.setEnabled(True)
         self.update_combo_box()
@@ -893,10 +894,10 @@ class MainWindow(QMainWindow, WindowMixin):
                 shape.fill_color = QColor(*fill_color)
             else:
                 shape.fill_color = generate_color_by_text(label)
-
-            self.add_label(shape)
+            
+            self.add_label(shape) 
         self.update_combo_box()
-        self.canvas.load_shapes(s)
+        self.canvas.load_shapes(s)# box
 
     def update_combo_box(self):
         # Get the unique labels and add them to the Combobox.
@@ -1017,7 +1018,7 @@ class MainWindow(QMainWindow, WindowMixin):
             generate_color = generate_color_by_text(text)
             shape = self.canvas.set_last_label(
                 text, generate_color, generate_color)
-            self.add_label(shape)
+            #self.add_label(shape)
             if self.beginner():  # Switch to edit mode.
                 self.canvas.set_editing(True)
                 self.actions.create.setEnabled(True)
@@ -1405,6 +1406,7 @@ class MainWindow(QMainWindow, WindowMixin):
         if self.file_path:
             self.show_bounding_box_from_annotation_file(
                 file_path=self.file_path)
+        self.open_prev_image()
 
     def import_dir_images(self, dir_path):
         if not self.may_continue() or not dir_path:
