@@ -93,7 +93,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.default_save_dir = default_save_dir
         self.label_file_format = settings.get(
             SETTING_LABEL_FILE_FORMAT, LabelFileFormat.PASCAL_VOC)
-
+        _key = sys.argv[1]
         # For loading all image under a directory
         self.m_img_list = []
         self.dir_name = None
@@ -1668,6 +1668,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.set_dirty()
 
     def load_predefined_classes(self, predef_classes_file):
+        print(f"predef_classes_file = {predef_classes_file}")
         if os.path.exists(predef_classes_file) is True:
             with codecs.open(predef_classes_file, 'r', 'utf8') as f:
                 for line in f:

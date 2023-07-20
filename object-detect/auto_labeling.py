@@ -30,6 +30,10 @@ if __name__ == "__main__":
         if done:
             EL.edit(dataset)
             
+        # 끝나면 edit folder에 있는것들이 pass로 가기.
+        # test folder에 남은 것들은 삭제시키기.
+        # fail이 사실상 다음 test 셋을 위한 것.
+
         # labelImg 가 끝나면 xml file로 변환시키기
         # 아니면 labelImg 에서 바로 저장시켜도 되고ㅇㅇ
     else:
