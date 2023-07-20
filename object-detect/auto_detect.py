@@ -150,14 +150,19 @@ def detect(_source,_weights,_name,_keyword,pass_conf=0.8,amb_conf=0.6,fail_conf=
                         #plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=1)
             
             # filter
-            filter = fil.confidence(li, pass_conf, amb_conf)
+            print("====================================================================================")
+            print(f"Conf : {li}")
+            filter, returnList = fil.confidence(li, pass_conf, amb_conf)
             if filter == "pass":
+                print(f"*{filter} : {returnList}")
                 save_path = str(save_dir / 'pass/images' / p.name)
                 shutil.move(str(save_dir / 'labels' / p.stem)+'.txt', str(save_dir / 'pass/labels' / p.stem)+'.txt')
             elif filter == "amb":
+                print(f"*{filter} : {returnList}")
                 save_path = str(save_dir / 'amb/images' / p.name)
                 shutil.move(str(save_dir / 'labels' / p.stem)+'.txt', str(save_dir / 'amb/labels' / p.stem)+'.txt')
             elif filter == "fail":
+                print(f"*{filter} : {returnList}")
                 save_path = str(save_dir / 'fail/images' / p.name)
                 shutil.move(str(save_dir / 'labels' / p.stem)+'.txt', str(save_dir / 'fail/labels' / p.stem)+'.txt')
            

@@ -13,7 +13,7 @@ def check_label(_keyword):
     AMB_LABEL_DIR = DIR_PATH + "/amb/labels/"
     image_array = os.listdir(path=AMB_IMG_DIR)
     label_array = os.listdir(path=AMB_LABEL_DIR)
-    print(label_array)
+    #print(label_array)
     label_names = []
     for l in label_array:
         label_names.append(os.path.splitext(l))

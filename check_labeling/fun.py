@@ -35,8 +35,8 @@ def copyNdel(src, dst,only_del=False):
 def matching(img_name, label_array):  #img name과 맞는 
     split_img_name = os.path.splitext(img_name)[0]
     for label_name, tag in label_array:
-        print(label_name)
-        print(img_name)
+        #print(label_name)
+        #print(img_name)
         if split_img_name == label_name: return label_name+tag
     
     print(f"Wrong img name : {img_name}\nimg이름과 맞는 label를 찾을 수 없습니다.\t다음 img를 load합니다.")
