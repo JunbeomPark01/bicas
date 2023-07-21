@@ -24,6 +24,7 @@ def detect(_source,_weights,_name,_keyword,pass_conf=0.8,amb_conf=0.6,fail_conf=
     name = _name
     imgsz = _imgsz
     device = ""
+    n_pass, n_amb, n_fail, n_delete = 0, 0, 0, 0
     conf_thres = fail_conf
     iou_thres = 0.45
     no_trace = False
@@ -156,19 +157,24 @@ def detect(_source,_weights,_name,_keyword,pass_conf=0.8,amb_conf=0.6,fail_conf=
             print("====================================================================================")
             print(f"Conf : {li}")
             filter, returnList = fil.confidence(li, pass_conf, amb_conf)
+            
             if filter == "pass":
+                n_pass += 1
                 print(f"*{filter} : {returnList}")
                 save_path = str(save_dir / 'pass/images' / p.name)
                 shutil.move(str(save_dir / 'labels' / p.stem)+'.txt', str(save_dir / 'pass/labels' / p.stem)+'.txt')
             elif filter == "amb":
+                n_amb += 1
                 print(f"*{filter} : {returnList}")
                 save_path = str(save_dir / 'amb/images' / p.name)
                 shutil.move(str(save_dir / 'labels' / p.stem)+'.txt', str(save_dir / 'amb/labels' / p.stem)+'.txt')
             elif filter == "fail":
+                n_fail += 1
                 print(f"*{filter} : {returnList}")
                 save_path = str(save_dir / 'fail/images' / p.name)
                 shutil.move(str(save_dir / 'labels' / p.stem)+'.txt', str(save_dir / 'fail/labels' / p.stem)+'.txt')
-           
+            else:
+                n_delete += 1
             
             # Print time (inference + NMS)
             print(f'{s}Done. ({(1E3 * (t2 - t1)):.1f}ms) Inference, ({(1E3 * (t3 - t2)):.1f}ms) NMS')
@@ -202,5 +208,7 @@ def detect(_source,_weights,_name,_keyword,pass_conf=0.8,amb_conf=0.6,fail_conf=
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
         #print(f"Results saved to {save_dir}{s}")
-
+    print("***********************************************************************************")
+    print(f"Result:\n\tpass : {n_pass}\n\tamb : {n_amb}\n\tfail : {n_fail}\n\tdel : {n_delete}")
+    print("***********************************************************************************")
     print(f'Done. ({time.time() - t0:.3f}s)')

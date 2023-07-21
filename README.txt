@@ -7,7 +7,10 @@
 
 3. delete는 자동으로 삭제되지는 않고,
    test폴더에 그대로 남아있습니다.
-   
+
+4. Data 내 이미지 폴더 이름 test ---> images 로 수정
+   처음 보는 사람들이 들으면 헷갈릴까봐 수정하였습니다.
+
 ############# TREE #################
 
     ROOT
@@ -21,8 +24,12 @@
      │         ├─test      
      │         │  ├─images
      │         │  └─labels
-     │         │      ├─yolov7
-     │         │      └─yolov5  
+     │         │      ├─divided_data1
+     │         │      │     ├─yolov7 : model[1]
+     │         │      │     └─yolov5 : model[2]
+     │         │      └─divided_data2
+     │         │            ├─yolov7 : model[3]
+     │         │            └─yolov5 : model[4]
      │	       ├─pass
      │         │  ├─images
      │         │  └─labels
