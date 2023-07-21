@@ -1,6 +1,4 @@
-crawl/path.txt
 __pycache__
-data/
 xml/
 yolov5/
 Y5_human.pt
