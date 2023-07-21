@@ -3,7 +3,7 @@ import cv2
 
 from .fun import readNshow, matching, input_key
 
-def check_label(_keyword):
+def check_label(_keyword, pass_conf, amb_conf, fail_conf):
     #사실 없어도됨.
     dir_txt = open('./check_labeling/predefined/dir.txt',encoding='UTF8').read().split()
     #AMB_IMG_DIR = dir_txt[5]
@@ -23,7 +23,7 @@ def check_label(_keyword):
         if not label: #.txt file not found 시 다음 img load
             continue
 
-        readNshow(AMB_IMG_DIR+image, AMB_LABEL_DIR+label, _keyword) #image read n show
+        readNshow(AMB_IMG_DIR+image, AMB_LABEL_DIR+label, _keyword, pass_conf, amb_conf, fail_conf) #image read n show
 
         while input_key(image,label,_keyword):
             continue
