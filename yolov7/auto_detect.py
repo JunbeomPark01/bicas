@@ -156,7 +156,9 @@ def detect(_source,_weights,_name,_keyword,pass_conf=0.8,amb_conf=0.6,fail_conf=
             # filter
             print("====================================================================================")
             print(f"Conf : {li}")
-            filter, returnList = fil.confidence(li, pass_conf, amb_conf)
+            conf_sum = sum(li)/len(li)
+            #print(conf_sum)
+            filter, returnList = fil.sum_confidence(conf_sum, pass_conf, amb_conf)
             
             if filter == "pass":
                 n_pass += 1

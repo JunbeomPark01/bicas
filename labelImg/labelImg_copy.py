@@ -1694,6 +1694,9 @@ class MainWindow(QMainWindow, WindowMixin):
         self.canvas.verified = t_voc_parse_reader.verified
 
     def load_yolo_txt_by_filename(self, txt_path):
+        image_file_name = os.path.basename(self.file_path)
+        print('------------------------------------------------')
+        print("file name : " + image_file_name)
         if self.file_path is None:
             return
         if os.path.isfile(txt_path) is False:
@@ -1704,9 +1707,7 @@ class MainWindow(QMainWindow, WindowMixin):
         #t_yolo_parse_reader = YoloReader(txt_path, self.image)
 
         shapes = t_yolo_parse_reader.get_shapes()
-        # image_file_name = os.path.basename(self.file_path)
-        # print('------------------------------------------------')
-        # print("file name : " + image_file_name)
+        
         self.load_labels(shapes)
         self.canvas.verified = t_yolo_parse_reader.verified
 
