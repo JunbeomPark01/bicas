@@ -9,7 +9,7 @@ import shutil
 import sys
 import webbrowser as wb
 from functools import partial
-
+# 작업중
 try:
     from PyQt5.QtGui import *
     from PyQt5.QtCore import *
