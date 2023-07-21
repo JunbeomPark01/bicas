@@ -19,3 +19,27 @@ def confidence(li, pass_conf, amb_conf):
         returnList = failList
     return filter, returnList
     
+    #conf_sum = sum(li)/len(li)
+def sum_confidence(conf_sum, pass_conf, amb_conf):
+    result = "delete"
+    returnList = []
+
+    if isinstance(conf_sum, (int, float)):  # 단일 값인 경우 리스트로 변환
+        conf_sum = [conf_sum]
+
+    pass_list = list(filter(lambda x: x > pass_conf, conf_sum))
+    amb_list = list(filter(lambda x: amb_conf <= x < pass_conf, conf_sum))
+    fail_list = list(filter(lambda x: x < amb_conf, conf_sum))
+
+    if len(pass_list) > 0:
+        result = "pass"
+        returnList = pass_list
+    if len(amb_list) > 0:
+        result = "amb"
+        returnList = amb_list
+    if len(fail_list) > 0:
+        result = "fail"
+        returnList = fail_list
+
+    return result, returnList
+
