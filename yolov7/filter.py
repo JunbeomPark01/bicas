@@ -20,6 +20,7 @@ def confidence(li, pass_conf, amb_conf):
     return filter, returnList
     
     #conf_sum = sum(li)/len(li)
+    
 def sum_confidence(conf_sum, pass_conf, amb_conf):
     result = "delete"
     returnList = []

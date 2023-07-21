@@ -30,3 +30,22 @@ def check_label(_keyword, pass_conf, amb_conf, fail_conf):
 
         cv2.destroyAllWindows()
     return 1
+
+def remove_sixth_column_from_txt_files(folder_path):
+    for filename in os.listdir(folder_path):
+        if filename.endswith(".txt"):
+            filepath = os.path.join(folder_path, filename)
+            with open(filepath, "r") as file:
+                lines = file.readlines()
+
+            modified_lines = []
+            for line in lines:
+                elements = line.strip().split(" ")
+                if len(elements) == 6:  # 6개의 열(5개의 좌표값 + 1개의 confidence)이 있다면 여섯 번째 열을 삭제합니다.
+                    modified_line = " ".join(elements[:5]) + "\n"
+                    modified_lines.append(modified_line)
+                elif len(elements) == 5:  # 5개의 열만 있는 경우 해당 라인을 그대로 유지합니다.
+                    modified_lines.append(line)
+
+            with open(filepath, "w") as file:
+                file.writelines(modified_lines)

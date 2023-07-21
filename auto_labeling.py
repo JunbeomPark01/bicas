@@ -46,11 +46,8 @@ if __name__ == "__main__":
 
         shutil.rmtree(f'../data/{dataset}/amb')
         shutil.rmtree(f'../data/{dataset}/edit')
-        
-        # test folder에 남은 것들은 삭제시키기.
-        # fail이 사실상 다음 test 셋을 위한 것.
+
+        CL.remove_sixth_column_from_txt_files(f"../data/{dataset}/pass/labels")
 
     else:
         print("No Data")
-
-    
