@@ -6,6 +6,7 @@ from yolov7 import auto_detect as Y7
 #from yolov5 import auto_detect as Y5
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from check_labeling import check_labeling as CL
+from check_labeling.fun import remove_sixth_column_from_txt_files as DelSixthCol
 from labelImg import edit_labeling as EL
 
 if __name__ == "__main__":
@@ -47,7 +48,7 @@ if __name__ == "__main__":
         shutil.rmtree(f'../data/{dataset}/amb')
         shutil.rmtree(f'../data/{dataset}/edit')
 
-        CL.remove_sixth_column_from_txt_files(f"../data/{dataset}/pass/labels")
+        DelSixthCol(f"../data/{dataset}/pass/labels")
 
     else:
         print("No Data")
