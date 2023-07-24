@@ -1489,7 +1489,7 @@ class MainWindow(QMainWindow, WindowMixin):
             self.load_file(filename)
         else:
             # 마지막 이미지일 경우 창이 나옴
-            reply = QMessageBox.question(self, '마지막 이미지', '마지막 이미지입니다. 프로그램을 종료하시겠습니까?',
+            reply = QMessageBox.question(self, 'Exit the program', 'This is the last image.  Do you want to exit the program?',
                                          QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             if reply == QMessageBox.Yes:
                 self.close()
@@ -1671,7 +1671,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.set_dirty()
 
     def load_predefined_classes(self, predef_classes_file):
-        print("*******************")
+        print("\n*******************")
         print("Run labelImg")
         print("*******************")
         if os.path.exists(predef_classes_file) is True:
