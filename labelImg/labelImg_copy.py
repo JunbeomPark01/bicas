@@ -1493,8 +1493,8 @@ class MainWindow(QMainWindow, WindowMixin):
                                          QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             if reply == QMessageBox.Yes:
                 self.close()
-            print("")
-            print("Close labelImg")
+                print("")
+                print("Close labelImg")
 
     def open_file(self, _value=False):
         if not self.may_continue():
