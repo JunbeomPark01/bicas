@@ -10,8 +10,7 @@ from labelImg import edit_labeling as EL
 
 if __name__ == "__main__":
     
-    #dataset = input("Input dataset : ")
-    dataset = 'thermal-human'
+    dataset = input("Input dataset : ")
     source = f"./data/{dataset}/images"
 
     if os.path.isdir(source):
@@ -23,13 +22,10 @@ if __name__ == "__main__":
         weightsY7 = f"./data/{dataset}/Y7_{dataset}.pt"
         name = dataset
         # 이 값 위로는 pass 시키겠다. ex) 0.8 float 입력.
-        #pass_conf = float(input("Pass filter : "))
-        pass_conf = 1.0
+        pass_conf = float(input("Pass filter : "))
         # 이 값 위로는 ambiguous로 검수 시키겠다.
-        # amb_conf = float(input("Ambiguous filter : "))
-        amb_conf = 0.6
-        # fail_conf = float(input("Fail filter : "))
-        fail_conf = 0.1
+        amb_conf = float(input("Ambiguous filter : "))
+        fail_conf = float(input("Fail filter : "))
 
         conf = Y7.detect(source, weightsY7, name, dataset, pass_conf, amb_conf, fail_conf)
         os.rmdir(f'./data/{dataset}/labels')

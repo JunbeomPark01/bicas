@@ -946,8 +946,9 @@ class MainWindow(QMainWindow, WindowMixin):
             else:
                 self.label_file.save(annotation_file_path, shapes, self.file_path, self.image_data,
                                      self.line_color.getRgb(), self.fill_color.getRgb())
-            print(
-                'Image:{0} -> Annotation:{1}'.format(self.file_path, annotation_file_path))
+            
+            image_file_name = os.path.basename(self.file_path)
+            print("Edit Image Labels : ", image_file_name)
             return True
         except LabelFileError as e:
             self.error_message(u'Error saving label data', u'<b>%s</b>' % e)
@@ -1492,6 +1493,8 @@ class MainWindow(QMainWindow, WindowMixin):
                                          QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             if reply == QMessageBox.Yes:
                 self.close()
+            print("")
+            print("Close labelImg")
 
     def open_file(self, _value=False):
         if not self.may_continue():
@@ -1668,7 +1671,9 @@ class MainWindow(QMainWindow, WindowMixin):
         self.set_dirty()
 
     def load_predefined_classes(self, predef_classes_file):
-        print(f"predef_classes_file = {predef_classes_file}")
+        print("*******************")
+        print("Run labelImg")
+        print("*******************")
         if os.path.exists(predef_classes_file) is True:
             with codecs.open(predef_classes_file, 'r', 'utf8') as f:
                 for line in f:
