@@ -948,7 +948,7 @@ class MainWindow(QMainWindow, WindowMixin):
                                      self.line_color.getRgb(), self.fill_color.getRgb())
             
             image_file_name = os.path.basename(self.file_path)
-            print("Edit Image Labels : ", image_file_name)
+            print("Edit Image Labels :", image_file_name)
             return True
         except LabelFileError as e:
             self.error_message(u'Error saving label data', u'<b>%s</b>' % e)
@@ -1671,9 +1671,9 @@ class MainWindow(QMainWindow, WindowMixin):
         self.set_dirty()
 
     def load_predefined_classes(self, predef_classes_file):
-        print("\n*******************")
+        print("\n**************")
         print("Run labelImg")
-        print("*******************")
+        print("**************")
         if os.path.exists(predef_classes_file) is True:
             with codecs.open(predef_classes_file, 'r', 'utf8') as f:
                 for line in f:
