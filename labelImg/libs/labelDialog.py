@@ -10,7 +10,6 @@ from libs.utils import new_icon, label_validator, trimmed
 
 BB = QDialogButtonBox
 
-
 class LabelDialog(QDialog):
 
     def __init__(self, text="Enter object label", parent=None, list_item=None):

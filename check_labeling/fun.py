@@ -6,7 +6,7 @@ from datetime import datetime
 
 dir_txt = open('./check_labeling/predefined/dir.txt',encoding='UTF8').read().split()
 
-def readNshow(img_path, label_path, _keyword):
+def readNshow(img_path, label_path, _keyword, pass_conf, amb_conf, fail_conf):
     class_name_array = open(f'./data/{_keyword}/classes.txt',encoding='UTF8').read().split()
     #read .txt, img file
     lines = open(label_path).readlines()
@@ -14,8 +14,15 @@ def readNshow(img_path, label_path, _keyword):
     #plot BBox
     for line in lines:
             val = line.split()
-            class_name = class_name_array[int(val[0])] + ":" +val[-1]
-            plot_one_box(restore_x(val[1:], frame.shape[:2]), frame, label=class_name)
+            conf = val[-1]
+            class_name = class_name_array[int(val[0])] + ":" + conf
+            if float(conf) > pass_conf:
+                color = [0,255,0]
+            elif float(conf) > amb_conf:
+                color = [0,0,255]
+            else:
+                color = [255,0,0]
+            plot_one_box(restore_x(val[1:], frame.shape[:2]), frame, label=class_name, color=color)
     #make window
     name = os.path.splitext(img_path)[0]
     cv2.namedWindow(name,cv2.WINDOW_NORMAL)
@@ -35,8 +42,8 @@ def copyNdel(src, dst,only_del=False):
 def matching(img_name, label_array):  #img name과 맞는 
     split_img_name = os.path.splitext(img_name)[0]
     for label_name, tag in label_array:
-        print(label_name)
-        print(img_name)
+        #print(label_name)
+        #print(img_name)
         if split_img_name == label_name: return label_name+tag
     
     print(f"Wrong img name : {img_name}\nimg이름과 맞는 label를 찾을 수 없습니다.\t다음 img를 load합니다.")

@@ -93,7 +93,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.default_save_dir = default_save_dir
         self.label_file_format = settings.get(
             SETTING_LABEL_FILE_FORMAT, LabelFileFormat.PASCAL_VOC)
-
+        _key = sys.argv[1]
         # For loading all image under a directory
         self.m_img_list = []
         self.dir_name = None
@@ -851,9 +851,10 @@ class MainWindow(QMainWindow, WindowMixin):
         item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
         item.setCheckState(Qt.Checked)
         item.setBackground(generate_color_by_text(shape.label))
+        self.label_list.addItem(item)
         self.items_to_shapes[item] = shape
         self.shapes_to_items[shape] = item
-        self.label_list.addItem(item)
+        
         for action in self.actions.onShapesPresent:
             action.setEnabled(True)
         self.update_combo_box()
@@ -893,10 +894,10 @@ class MainWindow(QMainWindow, WindowMixin):
                 shape.fill_color = QColor(*fill_color)
             else:
                 shape.fill_color = generate_color_by_text(label)
-
-            self.add_label(shape)
+            
+            self.add_label(shape) 
         self.update_combo_box()
-        self.canvas.load_shapes(s)
+        self.canvas.load_shapes(s)# box
 
     def update_combo_box(self):
         # Get the unique labels and add them to the Combobox.
@@ -1017,7 +1018,7 @@ class MainWindow(QMainWindow, WindowMixin):
             generate_color = generate_color_by_text(text)
             shape = self.canvas.set_last_label(
                 text, generate_color, generate_color)
-            self.add_label(shape)
+            #self.add_label(shape)
             if self.beginner():  # Switch to edit mode.
                 self.canvas.set_editing(True)
                 self.actions.create.setEnabled(True)
@@ -1405,6 +1406,7 @@ class MainWindow(QMainWindow, WindowMixin):
         if self.file_path:
             self.show_bounding_box_from_annotation_file(
                 file_path=self.file_path)
+        self.open_prev_image()
 
     def import_dir_images(self, dir_path):
         if not self.may_continue() or not dir_path:
@@ -1668,6 +1670,7 @@ class MainWindow(QMainWindow, WindowMixin):
         self.set_dirty()
 
     def load_predefined_classes(self, predef_classes_file):
+        print(f"predef_classes_file = {predef_classes_file}")
         if os.path.exists(predef_classes_file) is True:
             with codecs.open(predef_classes_file, 'r', 'utf8') as f:
                 for line in f:
@@ -1701,7 +1704,9 @@ class MainWindow(QMainWindow, WindowMixin):
         #t_yolo_parse_reader = YoloReader(txt_path, self.image)
 
         shapes = t_yolo_parse_reader.get_shapes()
-        print(shapes)
+        # image_file_name = os.path.basename(self.file_path)
+        # print('------------------------------------------------')
+        # print("file name : " + image_file_name)
         self.load_labels(shapes)
         self.canvas.verified = t_yolo_parse_reader.verified
 
