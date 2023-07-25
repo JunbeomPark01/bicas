@@ -1020,8 +1020,8 @@ class MainWindow(QMainWindow, WindowMixin):
             shape = self.canvas.set_last_label(
                 text, generate_color, generate_color)
             self.add_label(shape)
-            image_file_name = os.path.basename(self.file_path)
-            print("Edit Box Labels :", image_file_name)
+            # image_file_name = os.path.basename(self.file_path)
+            # print("Edit Box Labels :", image_file_name)
             if self.beginner():  # Switch to edit mode.
                 self.canvas.set_editing(True)
                 self.actions.create.setEnabled(True)
