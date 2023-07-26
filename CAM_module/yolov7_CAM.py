@@ -136,3 +136,5 @@ for name in img_list:
     print(f"save in {os.path.join(save,name)} ({round(time.time()-start_time,3)}s)")
 
 print("\n#### DONE ####")
+
+sys.path.remove(yolov7)
