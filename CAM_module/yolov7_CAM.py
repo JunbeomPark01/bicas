@@ -4,6 +4,7 @@
 ### References: https://github.com/jacobgil/pytorch-grad-cam
 
 ### !pip install grad-cam
+
 import warnings
 warnings.filterwarnings('ignore')
 warnings.simplefilter('ignore')
@@ -15,11 +16,10 @@ import torchvision.transforms as transforms
 from pytorch_grad_cam import EigenCAM
 from pytorch_grad_cam.utils.image import show_cam_on_image, scale_cam_image
 from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
-from PIL import Image
 
 import time
 import argparse
-import sys
+import os
 
 COLORS = np.random.uniform(0, 255, size=(80, 3))
 
@@ -75,40 +75,33 @@ def renormalize_cam_in_bounding_boxes(boxes, colors, names, image_float_np, gray
     image_with_bounding_boxes = draw_detections(boxes, colors, names, eigencam_image_renormalized)
     return image_with_bounding_boxes
 
-
-
 #############################################################################################
 parser = argparse.ArgumentParser(description='save Eigen Class Activation Map by yolov7')   
 parser.add_argument('--source',default='./images', help='img folder path')
 parser.add_argument('-w','--weights', default='./yolov7_test.pt' ,help='yolov7 .pt file path')
-parser.add_argument('-y','--yolov7', help='yolov7 folder path')
-parser.add_argument('-cn','--class_num', default=1,help='class_num')
-parser.add_argument('--save', default='./runs',help='save dir path')
+parser.add_argument('-cn','--class_num', default=1,help='class_num | default = 1')
+parser.add_argument('--save', default='./runs',help='save dir path | default = ./runs')
 args = parser.parse_args()
 
-source,weights,save,cn,yolov7 = args.source,args.weights,args.save,args.class_num,args.yolov7
+source,weights,save,cn = args.source,args.weights,args.save,args.class_num
 #############################################################################################
 
-
-import os
-sys.path.append(yolov7)
-from hubconf import custom
-
-#model load
-model = custom(path_or_model=weights)
+# model load
 model = torch.hub.load('WongKinYiu/yolov7','custom', weights,verbose=False)
 model.eval()
 model.cpu()
-target_layers = [model.model.model[-2]]
+target_layers = [model.model.model[-2]] # set target layer
 targets = [ClassifierOutputTarget(cn)]
 
+#get img list
 img_list = os.listdir(source)
 
 #run
 print("model load complete\n\n#### start CAM ####\n")
 for name in img_list:
-    start_time = time.time()
-    img = cv2.imread(os.path.join(source,name))
+    start_time = time.time() # for elapsed time
+
+    img = cv2.imread(os.path.join(source,name)) #load img
     img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (640, 640))
     rgb_img = img.copy()
@@ -117,24 +110,21 @@ for name in img_list:
     tensor = transform(img).unsqueeze(0)
 
     
-    results = model([rgb_img])
-    #model results -> (boxes, colors, names)
-    boxes, colors, names = parse_detections(results)
-    #draw boxes
-    detections = draw_detections(boxes, colors, names, rgb_img.copy())
+    results = model([rgb_img]) # detect
+    boxes, colors, names = parse_detections(results) #get detect results
+    detections = draw_detections(boxes, colors, names, rgb_img.copy()) # plot detect results
+    
     #get CAM results
     cam = EigenCAM(model, target_layers,use_cuda=False)
     grayscale_cam = cam(tensor,targets,eigen_smooth=True)[0, :, :]
-    cam_image = show_cam_on_image(img, grayscale_cam, use_rgb=True)
+    cam_image = show_cam_on_image(img, grayscale_cam, use_rgb=True) #plot cam results
     
-    #renormalize cam in bounding boxes
-    renormalized_cam_image = renormalize_cam_in_bounding_boxes(boxes, colors, names, img, grayscale_cam)
-    save_img = np.hstack((detections, cam_image, renormalized_cam_image))
 
-    #img save
+    renormalized_cam_image = renormalize_cam_in_bounding_boxes(boxes, colors, names, img, grayscale_cam) # renormalize_cam_in_bounding_boxes
+    save_img = np.hstack((detections, cam_image, renormalized_cam_image)) #stack imgs
+
+    #save stacked img
     cv2.imwrite(os.path.join(save,name),cv2.cvtColor(save_img,cv2.COLOR_BGR2RGB))
     print(f"save in {os.path.join(save,name)} ({round(time.time()-start_time,3)}s)")
 
 print("\n#### DONE ####")
-
-sys.path.remove(yolov7)
