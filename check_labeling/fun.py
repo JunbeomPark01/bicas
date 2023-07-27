@@ -21,7 +21,7 @@ def readNshow(img_path, label_path, _keyword, pass_conf, amb_conf, fail_conf):
     for line in lines:
             val = line.split()
             conf = val[-1]
-            class_name = class_name_array[int(val[0])] + ":" + conf
+            class_name = class_name_array[int(val[0])] + ":" + str(round(float(conf),2))
             if float(conf) > pass_conf:
                 color = [0,255,0]
             elif float(conf) > amb_conf:

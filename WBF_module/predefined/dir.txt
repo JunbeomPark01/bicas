@@ -1,2 +1,2 @@
 labels_dir_path= ./data/labels/
-result_save_dir= ./runs/
+result_save_dir= ../data/{}/
