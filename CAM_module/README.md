@@ -28,7 +28,7 @@ you can be used this project by using option.  here is an example
 ### example
 ``` shell
 cd CAM_module
-python  ./yolov7_CAM.py  --source  ./images  -w  ./yolov7_test.pt  -y  ../yolov7  -cn  10  --save  ./runs
+python ./yolov7_CAM.py --source ./images -w ./yolov7_test.pt -cn 10 --save ./runs
 ```
 
 References: pytorch-grad-cam (https://github.com/jacobgil/pytorch-grad-cam)

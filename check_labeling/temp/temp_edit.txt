@@ -1,0 +1,3 @@
+person_data_00055.jpg person_data_00055.txt
+person_data_00077.jpg person_data_00077.txt
+person_data_00080.jpg person_data_00080.txt
